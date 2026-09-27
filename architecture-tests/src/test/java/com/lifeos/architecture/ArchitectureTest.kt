@@ -98,4 +98,28 @@ class ArchitectureTest {
                 }
             }
     }
+
+    @Test
+    fun `use cases must not depend on or reference other use cases`() {
+        Konsist
+            .scopeFromProject()
+            .classes()
+            .withNameEndingWith("UseCase")
+            .assertTrue { clazz ->
+                val hasUseCaseProperty = clazz.properties().any { it.type?.name?.endsWith("UseCase") == true }
+                val hasUseCaseConstructorParam = clazz.constructors.any { constructor ->
+                    constructor.parameters.any { it.type.name.endsWith("UseCase") }
+                }
+                val hasUseCaseFunctionParamOrReturn = clazz.functions().any { function ->
+                    function.parameters.any { it.type.name.endsWith("UseCase") } ||
+                    function.returnType?.name?.endsWith("UseCase") == true
+                }
+                val hasUseCaseParent = clazz.parents().any { it.name.endsWith("UseCase") }
+
+                !hasUseCaseProperty &&
+                !hasUseCaseConstructorParam &&
+                !hasUseCaseFunctionParamOrReturn &&
+                !hasUseCaseParent
+            }
+    }
 }

@@ -23,8 +23,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.lifeos.core.navigation.LifeOsDestination
-import com.lifeos.core.navigation.Test
-import com.lifeos.core.navigation.TestNavType
 import com.lifeos.feature.assistant.presentation.AssistantRoute
 import com.lifeos.feature.dashboard.presentation.DashboardRoute
 import com.lifeos.feature.learning.presentation.LearningRoute
@@ -32,7 +30,6 @@ import com.lifeos.feature.reminders.presentation.ReminderDetailRoute
 import com.lifeos.feature.reminders.presentation.RemindersRoute
 import com.lifeos.feature.tradingjournal.presentation.TradingRoute
 import com.lifeos.feature.travel.presentation.TravelRoute
-import kotlin.reflect.typeOf
 
 sealed class BottomNavItem(
     val title: String,
@@ -105,13 +102,11 @@ fun LifeOsAppNavHost(
             composable<LifeOsDestination.Reminders> {
                 RemindersRoute(
                     onReminderClick = { reminderId ->
-                        navController.navigate(LifeOsDestination.ReminderDetail(reminderId, Test("")))
+                        navController.navigate(LifeOsDestination.ReminderDetail(reminderId))
                     }
                 )
             }
-            composable<LifeOsDestination.ReminderDetail>(
-                typeMap = mapOf(typeOf<Test>() to TestNavType)
-            ) {
+            composable<LifeOsDestination.ReminderDetail> {
                 ReminderDetailRoute(
                     onNavigateBack = { navController.popBackStack() }
                 )
