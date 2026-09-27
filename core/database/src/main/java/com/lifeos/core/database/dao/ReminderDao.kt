@@ -20,6 +20,9 @@ interface ReminderDao {
     @Query("SELECT * FROM reminders WHERE id = :id")
     suspend fun getReminderById(id: String): ReminderEntity?
 
+    @Query("SELECT * FROM reminders WHERE id = :id")
+    fun observeReminderById(id: String): Flow<ReminderEntity?>
+
     @Query("SELECT COUNT(*) FROM reminders WHERE isCompleted = 0")
     fun getPendingCount(): Flow<Int>
 

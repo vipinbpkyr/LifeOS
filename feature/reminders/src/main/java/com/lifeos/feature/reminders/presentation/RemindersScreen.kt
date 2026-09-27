@@ -53,6 +53,7 @@ import com.lifeos.core.model.ReminderPriority
 
 @Composable
 fun RemindersRoute(
+    onReminderClick: (String) -> Unit = {},
     viewModel: RemindersViewModel = hiltViewModel(),
     modifier: Modifier = Modifier
 ) {
@@ -67,6 +68,7 @@ fun RemindersRoute(
         onToggleCompletion = viewModel::toggleCompletion,
         onDeleteReminder = viewModel::deleteReminder,
         onToggleFilter = viewModel::onToggleFilter,
+        onReminderClick = onReminderClick,
         modifier = modifier
     )
 }
@@ -79,6 +81,7 @@ fun RemindersScreen(
     onToggleCompletion: (String) -> Unit,
     onDeleteReminder: (String) -> Unit,
     onToggleFilter: (Boolean) -> Unit,
+    onReminderClick: (String) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     var showCreateDialog by remember { mutableStateOf(false) }
@@ -193,6 +196,7 @@ fun RemindersScreen(
                     items(uiState.reminders, key = { it.id }) { reminder ->
                         ReminderRow(
                             reminder = reminder,
+                            onClick = { onReminderClick(reminder.id) },
                             onToggle = { onToggleCompletion(reminder.id) },
                             onDelete = { onDeleteReminder(reminder.id) }
                         )
@@ -288,10 +292,11 @@ private fun CreateReminderDialog(
 @Composable
 private fun ReminderRow(
     reminder: Reminder,
+    onClick: () -> Unit,
     onToggle: () -> Unit,
     onDelete: () -> Unit
 ) {
-    LifeOsCard {
+    LifeOsCard(onClick = onClick) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -358,7 +363,8 @@ private fun RemindersScreenPreview() {
             onAddReminder = { _, _, _ -> },
             onToggleCompletion = {},
             onDeleteReminder = {},
-            onToggleFilter = {}
+            onToggleFilter = {},
+            onReminderClick = {}
         )
     }
 }

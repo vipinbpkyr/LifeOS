@@ -34,3 +34,17 @@ class DeleteReminderUseCase @Inject constructor(
         repository.deleteReminder(id)
     }
 }
+
+class GetReminderByIdUseCase @Inject constructor(
+    private val repository: ReminderRepository
+) {
+    operator fun invoke(id: String): Flow<Reminder?> = repository.getReminderStream(id)
+}
+
+class UpdateReminderUseCase @Inject constructor(
+    private val repository: ReminderRepository
+) {
+    suspend operator fun invoke(reminder: Reminder) {
+        repository.saveReminder(reminder)
+    }
+}

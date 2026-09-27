@@ -21,6 +21,9 @@ class ReminderRepositoryImpl @Inject constructor(
     override suspend fun getReminderById(id: String): Reminder? =
         reminderDao.getReminderById(id)?.toDomainModel()
 
+    override fun getReminderStream(id: String): Flow<Reminder?> =
+        reminderDao.observeReminderById(id).map { it?.toDomainModel() }
+
     override suspend fun saveReminder(reminder: Reminder) {
         reminderDao.insertReminder(ReminderEntity.fromDomainModel(reminder))
     }
