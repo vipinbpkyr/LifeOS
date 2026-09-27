@@ -29,8 +29,8 @@ import com.lifeos.core.designsystem.component.AiBadge
 import com.lifeos.core.designsystem.component.LifeOsCard
 import com.lifeos.core.designsystem.component.MetricCard
 import com.lifeos.core.designsystem.theme.LifeOsTheme
+import com.lifeos.core.model.ItineraryDay
 import com.lifeos.core.model.PackingItem
-import com.lifeos.core.model.TravelDay
 import com.lifeos.core.model.TravelPlan
 
 @Composable
@@ -184,11 +184,15 @@ private fun TravelScreenPreview() {
                     TravelPlan(
                         id = "1",
                         destination = "Tokyo, Japan",
-                        startDate = "2026-11-01",
-                        endDate = "2026-11-10",
+                        startDate = 1700000000000L,
+                        endDate = 1700864000000L,
                         estimatedBudget = 3500.0,
                         days = listOf(
-                            TravelDay(dayNumber = 1, activities = listOf("Arrive at Haneda", "Shinjuku night walk"))
+                            ItineraryDay(
+                                dayNumber = 1,
+                                dateString = "Day 1",
+                                theme = "Arrival & Shinjuku"
+                            )
                         ),
                         packingList = listOf(
                             PackingItem(id = "p1", name = "Universal Power Adapter", isPacked = true)

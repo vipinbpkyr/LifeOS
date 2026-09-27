@@ -32,10 +32,11 @@ import com.lifeos.core.designsystem.component.LifeOsCard
 import com.lifeos.core.designsystem.component.MetricCard
 import com.lifeos.core.designsystem.theme.LifeOsSuccess
 import com.lifeos.core.designsystem.theme.LifeOsTheme
+import com.lifeos.core.model.TradeEmotion
 import com.lifeos.core.model.TradeEntry
-import com.lifeos.core.model.TradeStats
 import com.lifeos.core.model.TradeStatus
 import com.lifeos.core.model.TradeType
+import com.lifeos.feature.tradingjournal.domain.usecase.TradingStats
 
 @Composable
 fun TradingRoute(
@@ -221,19 +222,17 @@ private fun TradingJournalScreenPreview() {
                         quantity = 50.0,
                         stopLoss = 115.0,
                         takeProfit = 135.0,
-                        tradeType = TradeType.LONG,
+                        tradeType = TradeType.BUY_LONG,
+                        entryTimestamp = 1700000000000L,
                         status = TradeStatus.OPEN,
-                        emotion = "Disciplined",
-                        riskRewardRatio = 3.0
+                        emotion = TradeEmotion.CONFIDENT
                     )
                 ),
-                stats = TradeStats(
+                stats = TradingStats(
                     totalTrades = 12,
-                    winningTrades = 8,
-                    losingTrades = 4,
-                    winRatePercentage = 66.7,
-                    totalProfitLoss = 3450.0,
-                    openTradesCount = 1
+                    openTradesCount = 1,
+                    totalRealizedPnL = 3450.0,
+                    winRatePercentage = 66.7
                 ),
                 tickerInput = "NVDA",
                 entryPriceInput = "120.0"

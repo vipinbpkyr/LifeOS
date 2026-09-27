@@ -269,6 +269,7 @@ private fun DashboardScreenPreview() {
             uiState = DashboardUiState(
                 summary = DashboardSummary(
                     pendingRemindersCount = 3,
+                    upcomingUrgentReminders = emptyList(),
                     openTradesCount = 2,
                     totalRealizedPnL = 1250.50,
                     activeLearningGoalsCount = 4,

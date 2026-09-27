@@ -36,8 +36,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lifeos.core.designsystem.component.AiBadge
 import com.lifeos.core.designsystem.component.LifeOsCard
 import com.lifeos.core.designsystem.theme.LifeOsTheme
-import com.lifeos.core.model.Priority
 import com.lifeos.core.model.Reminder
+import com.lifeos.core.model.ReminderPriority
 
 @Composable
 fun RemindersRoute(
@@ -202,15 +202,17 @@ private fun RemindersScreenPreview() {
                     Reminder(
                         id = "1",
                         title = "Review Q3 trading performance",
+                        dueTimestamp = 1700000000000L,
                         isCompleted = false,
-                        priority = Priority.HIGH,
+                        priority = ReminderPriority.HIGH,
                         aiSuggestedCategory = "Finance"
                     ),
                     Reminder(
                         id = "2",
                         title = "Pack passport and travel adapter",
+                        dueTimestamp = 1700000000000L,
                         isCompleted = true,
-                        priority = Priority.MEDIUM,
+                        priority = ReminderPriority.MEDIUM,
                         aiSuggestedCategory = "Travel"
                     )
                 ),

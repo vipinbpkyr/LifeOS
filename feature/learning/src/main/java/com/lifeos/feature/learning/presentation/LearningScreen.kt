@@ -186,6 +186,8 @@ private fun LearningScreenPreview() {
                     LearningGoal(
                         id = "1",
                         title = "Jetpack Compose Internals",
+                        category = "Android Architecture",
+                        targetCompletionDays = 7,
                         progressPercentage = 50,
                         topics = listOf(
                             LearningTopic(id = "t1", title = "Snapshot State system", isCompleted = true),
