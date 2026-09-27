@@ -55,20 +55,26 @@ class RemindersViewModel @Inject constructor(
         filterOnlyPending.value = onlyPending
     }
 
-    fun addReminder(priority: ReminderPriority = ReminderPriority.MEDIUM) {
-        val title = newReminderTitle.value.trim()
-        if (title.isBlank()) return
+    fun addReminder(
+        title: String = newReminderTitle.value,
+        priority: ReminderPriority = ReminderPriority.MEDIUM,
+        category: String = "Personal"
+    ) {
+        val trimmedTitle = title.trim()
+        if (trimmedTitle.isBlank()) return
 
         viewModelScope.launch {
             val reminder = Reminder(
                 id = UUID.randomUUID().toString(),
-                title = title,
+                title = trimmedTitle,
                 dueTimestamp = System.currentTimeMillis() + 86400000L,
                 priority = priority,
-                aiSuggestedCategory = "Personal"
+                aiSuggestedCategory = category
             )
             saveReminderUseCase(reminder)
-            newReminderTitle.value = ""
+            if (trimmedTitle == newReminderTitle.value.trim()) {
+                newReminderTitle.value = ""
+            }
         }
     }
 
