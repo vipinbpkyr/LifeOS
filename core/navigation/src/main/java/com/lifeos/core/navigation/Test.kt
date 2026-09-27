@@ -10,21 +10,29 @@ import kotlinx.serialization.json.Json
 @Serializable
 data class Test(val ss: String)
 
-val TestNavType = object : NavType<Test>(isNullableAllowed = false) {
-    override fun get(bundle: Bundle, key: String): Test? {
+/**
+ * Reusable NavType generator for any @Serializable Kotlin class in Navigation Compose.
+ */
+inline fun <reified T : Any> serializableType(
+    isNullableAllowed: Boolean = false,
+    json: Json = Json
+): NavType<T> = object : NavType<T>(isNullableAllowed = isNullableAllowed) {
+    override fun get(bundle: Bundle, key: String): T? {
         val value = bundle.getString(key) ?: return null
-        return Json.decodeFromString(value)
+        return json.decodeFromString(value)
     }
 
-    override fun parseValue(value: String): Test {
-        return Json.decodeFromString(Uri.decode(value))
+    override fun parseValue(value: String): T {
+        return json.decodeFromString(Uri.decode(value))
     }
 
-    override fun serializeAsValue(value: Test): String {
-        return Uri.encode(Json.encodeToString(value))
+    override fun serializeAsValue(value: T): String {
+        return Uri.encode(json.encodeToString(value))
     }
 
-    override fun put(bundle: Bundle, key: String, value: Test) {
-        bundle.putString(key, Json.encodeToString(value))
+    override fun put(bundle: Bundle, key: String, value: T) {
+        bundle.putString(key, json.encodeToString(value))
     }
 }
+
+val TestNavType: NavType<Test> = serializableType<Test>()
