@@ -83,10 +83,14 @@ Rules verified:
 - All UseCases reside in `domain.usecase` and have a single public `operator fun invoke`.
 - Repositories reside in `domain.repository` with implementations in `data.repository`.
 
-### Detekt Static Code Analysis
+### Detekt Static Code Analysis & Baselines
 Configured in `config/detekt/detekt.yml` with Jetpack Compose support:
 ```bash
+# Run code analysis across all modules
 ./gradlew detekt
+
+# Generate / update Detekt baselines to suppress legacy or accepted issues
+./gradlew detektBaseline
 ```
 
 ---

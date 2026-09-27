@@ -24,10 +24,26 @@ dependencies {
 subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
 
+    val moduleBaseline = file("${project.projectDir}/detekt-baseline.xml")
+
     detekt {
         buildUponDefaultConfig = true
         allRules = false
         config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+        source.setFrom(files("src/main/java", "src/main/kotlin"))
+        baseline = moduleBaseline
+    }
+
+    tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+        if (moduleBaseline.exists()) {
+            baseline.set(moduleBaseline)
+        }
+    }
+
+    tasks.withType<io.gitlab.arturbosch.detekt.DetektCreateBaselineTask>().configureEach {
+        config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+        buildUponDefaultConfig.set(true)
+        baseline.set(moduleBaseline)
     }
 
     dependencies {
