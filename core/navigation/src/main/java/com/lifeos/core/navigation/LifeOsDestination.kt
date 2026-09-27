@@ -24,5 +24,5 @@ sealed interface LifeOsDestination {
     data object AiAssistant : LifeOsDestination
 
     @Serializable
-    data class ReminderDetail(val reminderId: String) : LifeOsDestination
+    data class ReminderDetail(val reminderId: String, val test: Test) : LifeOsDestination
 }

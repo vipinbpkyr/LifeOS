@@ -6,12 +6,15 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.lifeos.core.model.ReminderPriority
 import com.lifeos.core.navigation.LifeOsDestination
+import com.lifeos.core.navigation.Test
+import com.lifeos.core.navigation.TestNavType
 import com.lifeos.feature.reminders.domain.usecase.DeleteReminderUseCase
 import com.lifeos.feature.reminders.domain.usecase.GetReminderByIdUseCase
 import com.lifeos.feature.reminders.domain.usecase.ToggleReminderUseCase
 import com.lifeos.feature.reminders.domain.usecase.UpdateReminderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.reflect.typeOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,7 +30,11 @@ class ReminderDetailViewModel @Inject constructor(
     private val toggleReminderUseCase: ToggleReminderUseCase
 ) : ViewModel() {
 
-    private val reminderId: String = savedStateHandle.toRoute<LifeOsDestination.ReminderDetail>().reminderId
+    private val navRoute = savedStateHandle.toRoute<LifeOsDestination.ReminderDetail>(
+        typeMap = mapOf(typeOf<Test>() to TestNavType)
+    )
+    private val reminderId: String = navRoute.reminderId
+    val test: Test = navRoute.test
 
     private val _uiState = MutableStateFlow(ReminderDetailUiState())
     val uiState: StateFlow<ReminderDetailUiState> = _uiState.asStateFlow()
