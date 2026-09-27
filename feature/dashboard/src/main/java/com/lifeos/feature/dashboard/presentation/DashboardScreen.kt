@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,6 +33,8 @@ import com.lifeos.core.designsystem.component.AiBadge
 import com.lifeos.core.designsystem.component.LifeOsCard
 import com.lifeos.core.designsystem.component.MetricCard
 import com.lifeos.core.designsystem.theme.LifeOsSuccess
+import com.lifeos.core.designsystem.theme.LifeOsTheme
+import com.lifeos.core.model.DashboardSummary
 
 @Composable
 fun DashboardRoute(
@@ -255,5 +258,30 @@ fun DashboardScreen(
                 Text("Open LifeOS AI Copilot")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun DashboardScreenPreview() {
+    LifeOsTheme {
+        DashboardScreen(
+            uiState = DashboardUiState(
+                summary = DashboardSummary(
+                    pendingRemindersCount = 3,
+                    openTradesCount = 2,
+                    totalRealizedPnL = 1250.50,
+                    activeLearningGoalsCount = 4,
+                    upcomingTravelDestination = "Tokyo",
+                    aiDailyBriefing = "Good morning! Focus on risk management today."
+                ),
+                isLoading = false
+            ),
+            onNavigateToReminders = {},
+            onNavigateToTrading = {},
+            onNavigateToLearning = {},
+            onNavigateToTravel = {},
+            onNavigateToAssistant = {}
+        )
     }
 }

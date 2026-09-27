@@ -21,12 +21,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lifeos.core.designsystem.component.AiBadge
 import com.lifeos.core.designsystem.component.LifeOsCard
 import com.lifeos.core.designsystem.component.MetricCard
+import com.lifeos.core.designsystem.theme.LifeOsTheme
+import com.lifeos.core.model.PackingItem
+import com.lifeos.core.model.TravelDay
 import com.lifeos.core.model.TravelPlan
 
 @Composable
@@ -167,5 +171,36 @@ private fun TravelPlanCard(plan: TravelPlan) {
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TravelScreenPreview() {
+    LifeOsTheme {
+        TravelScreen(
+            uiState = TravelUiState(
+                plans = listOf(
+                    TravelPlan(
+                        id = "1",
+                        destination = "Tokyo, Japan",
+                        startDate = "2026-11-01",
+                        endDate = "2026-11-10",
+                        estimatedBudget = 3500.0,
+                        days = listOf(
+                            TravelDay(dayNumber = 1, activities = listOf("Arrive at Haneda", "Shinjuku night walk"))
+                        ),
+                        packingList = listOf(
+                            PackingItem(id = "p1", name = "Universal Power Adapter", isPacked = true)
+                        )
+                    )
+                ),
+                destinationInput = "Tokyo",
+                budgetInput = "3500"
+            ),
+            onDestinationChanged = {},
+            onBudgetChanged = {},
+            onAddTravelPlan = {}
+        )
     }
 }

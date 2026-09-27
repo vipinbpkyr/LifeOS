@@ -29,11 +29,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lifeos.core.designsystem.component.AiBadge
 import com.lifeos.core.designsystem.component.LifeOsCard
+import com.lifeos.core.designsystem.theme.LifeOsTheme
+import com.lifeos.core.model.Priority
 import com.lifeos.core.model.Reminder
 
 @Composable
@@ -186,5 +189,39 @@ private fun ReminderRow(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun RemindersScreenPreview() {
+    LifeOsTheme {
+        RemindersScreen(
+            uiState = RemindersUiState(
+                reminders = listOf(
+                    Reminder(
+                        id = "1",
+                        title = "Review Q3 trading performance",
+                        isCompleted = false,
+                        priority = Priority.HIGH,
+                        aiSuggestedCategory = "Finance"
+                    ),
+                    Reminder(
+                        id = "2",
+                        title = "Pack passport and travel adapter",
+                        isCompleted = true,
+                        priority = Priority.MEDIUM,
+                        aiSuggestedCategory = "Travel"
+                    )
+                ),
+                newReminderTitle = "",
+                filterOnlyPending = false
+            ),
+            onTitleChanged = {},
+            onAddReminder = {},
+            onToggleCompletion = {},
+            onDeleteReminder = {},
+            onToggleFilter = {}
+        )
     }
 }

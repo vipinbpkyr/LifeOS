@@ -21,12 +21,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lifeos.core.designsystem.component.AiBadge
 import com.lifeos.core.designsystem.component.LifeOsCard
+import com.lifeos.core.designsystem.theme.LifeOsTheme
 import com.lifeos.core.model.LearningGoal
+import com.lifeos.core.model.LearningTopic
 
 @Composable
 fun LearningRoute(
@@ -170,5 +173,31 @@ private fun LearningGoalCard(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun LearningScreenPreview() {
+    LifeOsTheme {
+        LearningScreen(
+            uiState = LearningUiState(
+                goals = listOf(
+                    LearningGoal(
+                        id = "1",
+                        title = "Jetpack Compose Internals",
+                        progressPercentage = 50,
+                        topics = listOf(
+                            LearningTopic(id = "t1", title = "Snapshot State system", isCompleted = true),
+                            LearningTopic(id = "t2", title = "Layout & SubcomposeLayout", isCompleted = false)
+                        )
+                    )
+                ),
+                newGoalTitle = ""
+            ),
+            onTitleChanged = {},
+            onAddGoal = {},
+            onToggleTopic = { _, _ -> }
+        )
     }
 }

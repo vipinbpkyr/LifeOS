@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -30,7 +31,11 @@ import com.lifeos.core.designsystem.component.AiBadge
 import com.lifeos.core.designsystem.component.LifeOsCard
 import com.lifeos.core.designsystem.component.MetricCard
 import com.lifeos.core.designsystem.theme.LifeOsSuccess
+import com.lifeos.core.designsystem.theme.LifeOsTheme
 import com.lifeos.core.model.TradeEntry
+import com.lifeos.core.model.TradeStats
+import com.lifeos.core.model.TradeStatus
+import com.lifeos.core.model.TradeType
 
 @Composable
 fun TradingRoute(
@@ -199,5 +204,43 @@ private fun TradeItemCard(trade: TradeEntry) {
                 color = MaterialTheme.colorScheme.secondary
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TradingJournalScreenPreview() {
+    LifeOsTheme {
+        TradingJournalScreen(
+            uiState = TradingUiState(
+                trades = listOf(
+                    TradeEntry(
+                        id = "1",
+                        tickerSymbol = "NVDA",
+                        entryPrice = 120.0,
+                        quantity = 50.0,
+                        stopLoss = 115.0,
+                        takeProfit = 135.0,
+                        tradeType = TradeType.LONG,
+                        status = TradeStatus.OPEN,
+                        emotion = "Disciplined",
+                        riskRewardRatio = 3.0
+                    )
+                ),
+                stats = TradeStats(
+                    totalTrades = 12,
+                    winningTrades = 8,
+                    losingTrades = 4,
+                    winRatePercentage = 66.7,
+                    totalProfitLoss = 3450.0,
+                    openTradesCount = 1
+                ),
+                tickerInput = "NVDA",
+                entryPriceInput = "120.0"
+            ),
+            onTickerChanged = {},
+            onEntryPriceChanged = {},
+            onLogTrade = {}
+        )
     }
 }

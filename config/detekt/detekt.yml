@@ -34,7 +34,8 @@ style:
     maxLineLength: 300
   UnusedPrivateMember:
     active: true
-    allowedNames: '(_|preview.*)'
+    allowedNames: '(_|.*[pP]review.*)'
+    ignoreAnnotated: ['Preview']
 
 potential-bugs:
   ImplicitDefaultLocale:

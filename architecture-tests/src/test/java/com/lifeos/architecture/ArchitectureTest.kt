@@ -11,7 +11,7 @@ class ArchitectureTest {
     @Test
     fun `domain layer must not depend on android framework`() {
         Konsist
-            .scopeFromProduction()
+            .scopeFromProject()
             .files
             .filter { it.hasPackage("..domain..") }
             .assertTrue { file ->
@@ -25,7 +25,7 @@ class ArchitectureTest {
     @Test
     fun `view models must reside in presentation package and have ViewModel suffix and inherit ViewModel`() {
         Konsist
-            .scopeFromProduction()
+            .scopeFromProject()
             .classes()
             .withNameEndingWith("ViewModel")
             .assertTrue { clazz ->
@@ -37,7 +37,7 @@ class ArchitectureTest {
     @Test
     fun `use cases must reside in domain usecase package and have single invoke method`() {
         Konsist
-            .scopeFromProduction()
+            .scopeFromProject()
             .classes()
             .withNameEndingWith("UseCase")
             .assertTrue { clazz ->
@@ -50,7 +50,7 @@ class ArchitectureTest {
     @Test
     fun `repository interfaces must reside in domain repository package`() {
         Konsist
-            .scopeFromProduction()
+            .scopeFromProject()
             .interfaces()
             .withNameEndingWith("Repository")
             .assertTrue { iface ->
@@ -61,11 +61,26 @@ class ArchitectureTest {
     @Test
     fun `repository implementations must reside in data repository package`() {
         Konsist
-            .scopeFromProduction()
+            .scopeFromProject()
             .classes()
             .withNameEndingWith("RepositoryImpl")
             .assertTrue { clazz ->
                 clazz.resideInPackage("..data.repository..")
+            }
+    }
+
+    @Test
+    fun `every compose screen file must contain at least one preview composable`() {
+        Konsist
+            .scopeFromProject()
+            .files
+            .filter { (it.name.endsWith("Screen") || it.nameWithExtension.endsWith("Screen.kt")) && !it.path.contains("build") }
+            .assertTrue { file ->
+                file.functions().any { function ->
+                    function.hasAnnotation { annotation ->
+                        annotation.name == "Preview"
+                    }
+                }
             }
     }
 }

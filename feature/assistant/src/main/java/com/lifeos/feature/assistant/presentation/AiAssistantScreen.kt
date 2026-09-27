@@ -36,11 +36,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.lifeos.core.designsystem.component.AiBadge
 import com.lifeos.core.designsystem.component.LifeOsCard
+import com.lifeos.core.designsystem.theme.LifeOsTheme
 import com.lifeos.core.model.AiMessage
 import com.lifeos.core.model.AiRole
 
@@ -237,5 +239,34 @@ private fun ChatMessageBubble(message: AiMessage) {
                 style = MaterialTheme.typography.bodyMedium
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun AiAssistantScreenPreview() {
+    LifeOsTheme {
+        AiAssistantScreen(
+            uiState = AiAssistantUiState(
+                messages = listOf(
+                    AiMessage(
+                        id = "1",
+                        role = AiRole.USER,
+                        content = "How's my trading risk looking today?"
+                    ),
+                    AiMessage(
+                        id = "2",
+                        role = AiRole.ASSISTANT,
+                        content = "Your win rate is 66.7% across 12 trades with 1 open NVDA position. Risk/reward is well-balanced at 3.0."
+                    )
+                ),
+                currentPrompt = "",
+                isThinking = false
+            ),
+            onPromptChanged = {},
+            onSubmitPrompt = {},
+            onSelectSuggestion = {},
+            onClearChat = {}
+        )
     }
 }
