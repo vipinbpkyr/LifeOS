@@ -83,4 +83,19 @@ class ArchitectureTest {
                 }
             }
     }
+
+    @Test
+    fun `navigation routes must not contain custom serializable types and only allow primitive types`() {
+        val allowedTypes = setOf("String", "Int", "Long", "Boolean", "Float", "Double")
+        Konsist
+            .scopeFromProject()
+            .classes()
+            .filter { clazz -> clazz.parents().any { it.name == "LifeOsDestination" } }
+            .assertTrue { clazz ->
+                clazz.properties().all { property ->
+                    val cleanTypeName = property.type?.name?.removeSuffix("?")
+                    cleanTypeName in allowedTypes
+                }
+            }
+    }
 }
