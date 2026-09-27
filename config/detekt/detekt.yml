@@ -1,0 +1,62 @@
+build:
+  maxIssues: 0
+  excludeCorrectable: false
+
+naming:
+  FunctionNaming:
+    functionPattern: '([a-z][a-zA-Z0-9]*)|([A-Z][a-zA-Z0-9]*)' # Allow PascalCase for Composable functions
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Z0-9_]*'
+  MatchingDeclarationName:
+    active: false
+
+complexity:
+  CyclomaticComplexMethod:
+    threshold: 25
+  LongMethod:
+    threshold: 250
+  LongParameterList:
+    functionThreshold: 15 # Allow Compose functions with multiple parameters/modifiers
+    constructorThreshold: 15
+  TooManyFunctions:
+    thresholdInFiles: 40
+
+exceptions:
+  TooGenericExceptionCaught:
+    active: false
+
+style:
+  MagicNumber:
+    active: false
+  WildcardImport:
+    active: true
+  MaxLineLength:
+    maxLineLength: 300
+  UnusedPrivateMember:
+    active: true
+    allowedNames: '(_|preview.*)'
+
+potential-bugs:
+  ImplicitDefaultLocale:
+    active: false
+
+formatting:
+  active: true
+  android: true
+  autoCorrect: true
+  MaximumLineLength:
+    maxLineLength: 300
+  ArgumentListWrapping:
+    active: false
+  ImportOrdering:
+    active: false
+  ParameterListWrapping:
+    active: false
+  Wrapping:
+    active: false
+  MultiLineIfElse:
+    active: false
+  NoUnusedImports:
+    active: false
+  Indentation:
+    active: false

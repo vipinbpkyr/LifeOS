@@ -1,0 +1,10 @@
+# Cursor & AI Coding Rules for LifeOS
+
+- Architecture: Clean Architecture + MVVM/MVI + Multi-Module Android.
+- UI Toolkit: 100% Jetpack Compose with Material 3. Do not introduce XML layouts.
+- Domain Purity: Never import `android.*` or `androidx.*` in `domain/` packages. All business logic must be pure Kotlin.
+- Dependency Injection: Use Hilt (`@HiltViewModel`, `@Inject`, `@Module`, `@InstallIn(SingletonComponent::class)`).
+- State Management: ViewModels must expose a single immutable `StateFlow<XxxUiState>`. One-off events use `SharedFlow` or `Channel`.
+- Multi-Module rule: Features never depend directly on other features. Inter-feature contracts are mediated via `:core:model`, `:core:navigation`, and `:core:ai`.
+- AI Tool Calling: When implementing a new domain feature, expose an AI tool handler in `:core:ai:tools` so the assistant can trigger actions.
+- Quality Checks: Code must pass Detekt analysis (`./gradlew detekt`) and Konsist architecture checks (`./gradlew :architecture-tests:test`).
